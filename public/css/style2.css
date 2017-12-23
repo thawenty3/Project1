@@ -59,7 +59,7 @@ p{
 }
 #showcase .bg-image{
     position: absolute;
-    background: #333 url('\sagiri_izumi___eromanga_sensei_fanart_by_fhilippe124-db7u2ln.jpg');
+    background: #333 url('../images/sagiri.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
