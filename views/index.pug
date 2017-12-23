@@ -1,5 +1,146 @@
-extend layout
+doctype html
+html
+    head
+        title Somethings
+        link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css', integrity='sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb', crossorigin='anonymous')
 
-block content
-    h1 #{title}
-    
+        link(rel='stylesheet' href='/css/style2.css')
+    body
+        nav.navbar.navbar-expand-md.navbar-dark.fixed-top
+            a.navbar-brand(href='#') Project
+            button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarsExampleDefault', aria-controls='navbarsExampleDefault', aria-expanded='false', aria-label='Toggle navigation')
+                span.navbar-toggler-icon
+            #navbarsExampleDefault.collapse.navbar-collapse
+                ul.navbar-nav.mr-auto
+                    li.nav-item
+                        a.nav-link(href='/articles/forum') Forum
+                ul.navbar-nav.ml-auto
+                    if user
+                      li.nav-item
+                        a.nav-link(href='/users/logout') Logout
+                    else
+                      li.nav-item
+                        a.nav-link(href='/users/register') Register
+                      li.nav-item
+                        a.nav-link(href='/users/login') Login
+        .container
+            != messages('message',locals)
+            if errors
+                each error,i in errors
+                    div(class="alert alert-danger") #{error.msg}
+            block content
+                        header#showcase.grid
+                            .bg-image
+                            .content-wrap
+                                h1 Welcome to Something
+                                p
+                                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore, ab, obcaecati. Totam, perferendis, quae iure sint provident voluptate temporibus omnis?.
+                                a.btn.btn-lg.showcase-btn(href='#section-b') Read More
+                        main#main
+                        // section a
+                        section#section-a.grid
+                            .content-wrap
+                                h2.content-title Something Something
+                                .content-text
+                                    p
+                                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempora magnam distinctio commodi magni ratione aliquam voluptas alias assumenda, neque perspiciatis! Quia sapiente tempore facilis perferendis mollitia obcaecati neque odio eligendi dolor accusantium animi, repudiandae, doloribus, aut incidunt maiores modi cumque?
+                        // section b
+                        section#section-b.grid
+                            .bg-image
+                            ul
+                                li
+                                    .card
+                                        img(src='/rem1.jpg', alt='')
+                                        .card-content
+                                            h3.class-title WEb Dev
+                                            p
+                                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus inventore nemo quos sequi facilis laudantium dolorem perspiciatis, harum at accusamus!
+                                li
+                                    .card
+                                        img(src='/rem2.jpg', alt='')
+                                        .card-content
+                                            h3.class-title Mobile App
+                                            p
+                                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus inventore nemo quos sequi facilis laudantium dolorem perspiciatis, harum at accusamus!
+                                li
+                                    .card
+                                        img(src='/rem3.jpg', alt='')
+                                        .card-content
+                                            h3.class-title Marketing
+                                            p
+                                                | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Possimus inventore nemo quos sequi facilis laudantium dolorem perspiciatis, harum at accusamus!
+                        // section c
+                        section#section-c.grid
+                            .content-wrap
+                                h2.content-title Something Something3
+                                p
+                                    | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Tempore dolor ea dolorem aliquam repellat labore ullam, totam nemo consequatur atque.
+                        // section d
+                        section#section-d.grid
+                            .box
+                                .box1
+                                    h2.content-title Contact us
+                                    p
+                                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam deleniti autem, consequuntur alias eligendi cumque soluta doloribus vitae unde aperiam.
+                                    p something@gmail.com
+                            .box
+                                .box2
+                                    h2.content-title About us
+                                    p
+                                        | Lorem ipsum dolor sit amet, consectetur adipisicing elit. Assumenda corporis, nesciunt aliquid non vel, nihil error quod earum? Dolorum delectus voluptate fuga error non nemo, asperiores corporis pariatur eos ducimus?
+                        footer#main-footer.text-center
+                            div Something test © 2017
+                        script(src='https://code.jquery.com/jquery-3.2.1.min.js', integrity='sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=', crossorigin='anonymous')
+                        script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js', integrity='sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh', crossorigin='anonymous')
+                        script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js', integrity='sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ', crossorigin='anonymous')
+                        script(src='https://unpkg.com/scrollreveal/dist/scrollreveal.min.js')
+                        script.
+                            window.sr = ScrollReveal();
+                            sr.reveal('.navbar',{
+                            duration: 1000,
+                            origin:'bottom'
+                            });
+                            sr.reveal('.card div',{
+                            duration: 1000,
+                            origin:'bottom'
+                            });
+                            sr.reveal('.card img',{
+                            duration: 1000,
+                            origin:'top'
+                            });
+                            sr.reveal('#section-a div',{
+                            duration: 2000,
+                            origin:'bottom'
+                            });
+                            sr.reveal('#section-c div',{
+                            duration: 2000,
+                            origin:'bottom'
+                            });
+                            sr.reveal('#section-d .box',{
+                            duration: 1000,
+                            origin:'bottom'
+                            });
+                            sr.reveal('#section-d .box1',{
+                            duration: 2000,
+                            delay: 500,
+                            origin:'left'
+                            });
+                            sr.reveal('#section-d .box2',{
+                            duration: 2000,
+                            delay: 500,
+                            origin:'right'
+                            });
+                        script.
+                            $(document).ready(function(){
+                            var headerHeight = $('nav').outerHeight();
+                            $('.showcase-btn').click(function(e){
+                            var linkHref = $(this).attr('href');
+                            e.preventDefault();
+                            $('html, body').animate({
+                            scrollTop: $(linkHref).offset().top - headerHeight
+                            },1000);
+                            });
+                            });
+        script(src='/bower_components/jquery/dist/jquery.js')
+        script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+        script(src='/js/main.js')
