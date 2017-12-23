@@ -103,6 +103,6 @@ app.use('/articles', articles);
 app.use('/users', users);
 
 //Start
-app.listen(3333,function(){
-           console.log('Server started on port 3333...');
+app.listen(3000,function(){
+           console.log('Server started on port 3000...');
            });
