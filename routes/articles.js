@@ -6,6 +6,20 @@ let Article = require('../models/article');
 //bring in user models
 let User = require('../models/user');
 //Add Route
+router.get('/forum',function(req,res){
+    Article.find({},function(err,articles){
+        if(err){
+            console.log(err);
+        }else{
+             res.render('forum',{
+                        title:'Articles',
+                          articles: articles
+                            });
+        }
+        
+                     
+                      });
+                    });
 router.get('/add',ensureAuthenticated,function(req,res){
     res.render('add_article',{
                           title:'Add Articles'
