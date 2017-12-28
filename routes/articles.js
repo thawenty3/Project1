@@ -5,6 +5,8 @@ const router = express.Router();
 let Article = require('../models/article');
 //bring in user models
 let User = require('../models/user');
+//bring in comment models
+let Comment = require('../models/comment');
 //Add Route
 router.get('/forum',function(req,res){
     Article.find({},function(err,articles){
@@ -116,14 +118,50 @@ router.delete('/:id',function(req,res){
 router.get('/:id',function(req,res){
     Article.findById(req.params.id,function(err,article){
         User.findById(article.author,function(err,user){
+            Comment.find({id:req.params.id},function(err,comments){
             res.render('article',{
                 article:article,
-                author: user.name
+                author: user.name,
+                comments:comments
+            });
         });
        
        });
     });
 });
+router.post('/:id',function(req,res){
+    req.checkBody('body','Comment is required').notEmpty();
+    let errors = req.validationErrors();
+
+    if(errors){
+        Article.findById(req.params.id,function(err,article){
+        User.findById(article.author,function(err,user){
+            Comment.find({id:req.params.id},function(err,comments){
+            res.render('article',{
+                article:article,
+                author: user.name,
+                comments:comments,
+                errors:errors
+            });
+        });
+
+       });
+    });
+    } else{
+    let comment = new Comment();
+    comment.body = req.body.body;
+    comment.id = req.params.id;
+    comment.save(function(err){
+        if(err){
+            console.log(err);
+            return;
+        } else{
+            req.flash('success','Comment Added');
+            res.redirect('/articles/forum');
+        }
+    });
+
+}});
 
 //access control
 function ensureAuthenticated(req,res,next){

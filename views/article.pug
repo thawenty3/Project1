@@ -7,5 +7,19 @@ block content
     hr
     if user
         if user.id ==article.author
-            a.btn.btn-default(href='/articles/edit/'+article._id) Edit
+            a.btn.btn-primary(href='/articles/edit/'+article._id) Edit
             a.btn.btn-danger.delete-article(href='#',data-id=article._id) Delete
+    hr
+    h6 Comment :
+    ul.list-group
+        each comment, i in comments
+            li.list-group-item
+                p= comment.body
+    hr
+    if user
+         form(method='POST',action='/articles/'+article._id)
+            #form-group
+                label Add Comment:
+                textarea.form-control(name='body')
+            br
+            input.btn.btn-primary(type='submit',value='Submit')
