@@ -51,7 +51,7 @@ router.post('/add',function(req,res){
             return;
         } else{
             req.flash('success','Article Added');
-            res.redirect('/');
+            res.redirect('/articles/forum');
         }
     });
 }
@@ -86,7 +86,7 @@ router.post('/edit/:id',function(req,res){
             return;
         } else{
             req.flash('success','Article Updated')
-            res.redirect('/');
+            res.redirect('/articles/forum');
         }
     })
 });
