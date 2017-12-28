@@ -10,6 +10,10 @@ let commentSchema = mongoose.Schema({
         type:String,
         required:true
     },
+    writer:{
+        type:String,
+        required:true
+    }
 });
 
 let Comment = module.exports = mongoose.model('Comment',commentSchema);

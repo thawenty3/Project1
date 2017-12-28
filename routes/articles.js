@@ -151,6 +151,7 @@ router.post('/:id',function(req,res){
     let comment = new Comment();
     comment.body = req.body.body;
     comment.id = req.params.id;
+    comment.writer = req.user.name;
     comment.save(function(err){
         if(err){
             console.log(err);

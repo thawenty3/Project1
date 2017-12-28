@@ -14,7 +14,8 @@ block content
     ul.list-group
         each comment, i in comments
             li.list-group-item
-                p= comment.body
+                h5=comment.writer
+                p="said: "+comment.body
     hr
     if user
          form(method='POST',action='/articles/'+article._id)
