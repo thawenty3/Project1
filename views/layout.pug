@@ -16,6 +16,7 @@ html
                 ul.navbar-nav.ml-auto
                     if user
                       li.nav-item
+                        a.nav-brand(href='#') Logged in as #{user.name}!
                         a.nav-link(href='/users/logout') Logout
                     else
                       li.nav-item
