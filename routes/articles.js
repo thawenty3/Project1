@@ -8,6 +8,11 @@ let User = require('../models/user');
 //bring in comment models
 let Comment = require('../models/comment');
 //Add Route
+router.get('/chat',function(req,res){
+    res.render('chat',{
+        chat: req.user.username
+    });
+});
 router.get('/forum',function(req,res){
     Article.find({},function(err,articles){
         if(err){
@@ -163,7 +168,6 @@ router.post('/:id',function(req,res){
     });
 
 }});
-
 //access control
 function ensureAuthenticated(req,res,next){
     if(req.isAuthenticated()){

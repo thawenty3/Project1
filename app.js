@@ -8,6 +8,7 @@ const session = require('express-session');
 const config = require('./config/database');
 const passport = require('passport');
 
+
 mongoose.connect(config.database);
 let db = mongoose.connection;
 
@@ -21,6 +22,8 @@ db.on('error',function(err){
       });
 //init app
 const app = express();
+const server  = require('http').createServer(app);
+const io      = require('socket.io').listen(server);
 //bring in models
 let Article = require('./models/article');
 //load view engine
@@ -88,8 +91,6 @@ app.get('/',function(req,res){
             console.log(err);
         }else{
              res.render('index',{
-                          title:'Articles',
-                          articles: articles
                             });
         }
         
@@ -102,7 +103,66 @@ let users = require('./routes/users');
 app.use('/articles', articles);
 app.use('/users', users);
 
+//io
+io.on('connection', function(socket){
+  console.log('a user connected');
+    socket.on('disconnect', function(){
+        console.log('user disconnected');
+    });
+    socket.on('chat message', function(msg){
+    console.log('message: ' + msg);
+    io.emit('chat message',msg);
+  });
+    let chat = db.collection('chats');
+
+        // Create function to send status
+        sendStatus = function(s){
+            socket.emit('status', s);
+        }
+
+        // Get chats from mongo collection
+        chat.find().limit(100).sort({_id:1}).toArray(function(err, res){
+            if(err){
+                throw err;
+            }
+
+            // Emit the messages
+            socket.emit('output', res);
+        });
+
+        // Handle input events
+        socket.on('input', function(data){
+            let name = data.name;
+            let message = data.message;
+
+            // Check for name and message
+            if(name == '' || message == ''){
+                // Send error status
+                sendStatus('Please enter a name and message');
+            } else {
+                // Insert message
+                chat.insert({name: name, message: message}, function(){
+                    io.emit('output', [data]);
+
+                    // Send status object
+                    sendStatus({
+                        message: 'Message sent',
+                        clear: true
+                    });
+                });
+            }
+        });
+
+        // Handle clear
+        socket.on('clear', function(data){
+            // Remove all chats from collection
+            chat.remove({}, function(){
+                // Emit cleared
+                socket.emit('cleared');
+            });
+        });
+});
 //Start
-app.listen(3000,function(){
+server.listen(3000,function(){
            console.log('Server started on port 3000...');
            });

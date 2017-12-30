@@ -24,3 +24,6 @@
 .container{
     padding-top: 100px;
 }
+#messages{
+    height: 300px;
+}
